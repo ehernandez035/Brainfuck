@@ -1,0 +1,51 @@
+<?xml version='1.0' standalone='yes'?>
+<ACHIEVEMENTS>
+    <ACHIEVEMENT>
+        <TITLE>Bit</TITLE>
+        <DESCRIPTION>The starting one.</DESCRIPTION>
+        <ID>1</ID>
+        <UNLOCK>1000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Byte</TITLE>
+        <DESCRIPTION>The easy one.</DESCRIPTION>
+        <ID>2</ID>
+        <UNLOCK>2000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Kilobyte</TITLE>
+        <DESCRIPTION>Still an easy one.</DESCRIPTION>
+        <ID>3</ID>
+        <UNLOCK>4000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Megabyte</TITLE>
+        <DESCRIPTION>You have reached the middle achievement, keep going.</DESCRIPTION>
+        <ID>4</ID>
+        <UNLOCK>16000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Gigabyte</TITLE>
+        <DESCRIPTION>Cammon, you can do better.</DESCRIPTION>
+        <ID>5</ID>
+        <UNLOCK>32000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Terabyte</TITLE>
+        <DESCRIPTION>Still there?</DESCRIPTION>
+        <ID>6</ID>
+        <UNLOCK>48000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Petabyte</TITLE>
+        <DESCRIPTION>Your social life must be non-existent to reach this level.</DESCRIPTION>
+        <ID>7</ID>
+        <UNLOCK>64000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Exabyte</TITLE>
+        <DESCRIPTION>Congratulations! You have reached the last achievement, you have won my respect.</DESCRIPTION>
+        <ID>8</ID>
+        <UNLOCK>1000000</UNLOCK>
+    </ACHIEVEMENT>
+</ACHIEVEMENTS>
