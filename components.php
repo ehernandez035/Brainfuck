@@ -5,10 +5,13 @@ function printFooter()
     ?>
     <footer class='page-footer font-small bg-primary text-light fixed-bottom'>
         <!-- Copyright -->
-        <div class='footer-copyright text-center py-3'>© 2018 Copyright:
+        <div class='footer-copyright text-center mt-3'>© 2018 Copyright:
             <a href='https://github.com/ehernandez035/' class='text-light'> All rights reserved.</a>
         </div>
         <!-- Copyright -->
+        <div class='footer-copyright text-center mb-3'>Check our
+            <a href='cookiePolicy.html' class='text-light'> Privacy Policy</a>
+        </div>
     </footer>
     <?php
 }
@@ -16,7 +19,7 @@ function printFooter()
 function printNav()
 {
     ?>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
         <a class="navbar-brand" href="#">Brainfuck</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +48,11 @@ function printNav()
                     </div>
                 </li>
             </ul>
+            <div class="float-right">
+                <a href="logout.php">Logout <i class="material-icons" style="vertical-align: middle;">
+                    exit_to_app
+                </i></a>
+            </div>
         </div>
     </nav>
     <?php

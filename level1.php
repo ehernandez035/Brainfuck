@@ -1,5 +1,12 @@
 <?php
 require_once "components.php";
+require_once "datuBase.php";
+session_start();
+if (isset($_SESSION["userid"])){
+    $userid=$_SESSION["userid"];
+}else{
+    header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -169,6 +176,8 @@ body {
 
                 if (elapsed > timervalue) {
                     lose();
+                    <?php updatePointsL1($userid, getPoints($userid))?>
+
                 } else {
                     document.getElementById("timer").innerHTML = timervalue - elapsed;
                 }
@@ -194,8 +203,8 @@ body {
 <h2 id="lose" class="hidden">
 You lose!
 </h2>
-<div>
-    <h1 id="score">Score: 0</h1>
+<div class="text-center">
+    <h1 id="score" class="font-weight-bold">Score: 0</h1>
 </div>
 <button class="btn btn-primary" id="start" onclick="reset()">Start  <i class="material-icons" style="vertical-align: middle;">
         play_circle_outline

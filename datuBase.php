@@ -7,16 +7,16 @@ if ($mysqli->connect_error) {
 }
 
 
-function getTopPlayers()
+function getPlayersByScore()
 {
     global $mysqli;
-    if ($stmt = $mysqli->prepare("SELECT username, points FROM users ORDER BY points DESC LIMIT 10")) {
+    if ($stmt = $mysqli->prepare("SELECT username, (SUM(pointsL1)+ SUM(pointsL2)) AS points FROM users GROUP BY userid ORDER BY points DESC")) {
         if ($stmt->execute()) {
             $stmt->store_result();
             $stmt->bind_result($username, $points);
             $users = array();
             while ($stmt->fetch()) {
-                $users[] = array("username" => $username, "points" => $points);
+                $users[] = array("username" => $username, "points" => $points,);
             }
             return $users;
         } else {
@@ -33,10 +33,10 @@ function getUsers()
     if ($stmt = $mysqli->prepare("SELECT * FROM users")) {
         if ($stmt->execute()) {
             $stmt->store_result();
-            $stmt->bind_result($userid, $username, $email, $password, $points);
+            $stmt->bind_result($userid, $username, $email, $password, $pointsL1, $pointsL2 );
             $users = array();
             while ($stmt->fetch()) {
-                $users[] = array("userid" => $userid, "username" => $username, "email" => $email, "password" => $password, "points" => $points);
+                $users[] = array("userid" => $userid, "username" => $username, "email" => $email, "password" => $password, "pointsL1" => $pointsL1, "pointsL2" => $pointsL2);
             }
             return $users;
         } else {
@@ -51,6 +51,48 @@ function isEmailValid($email){
     return (!preg_match("/[A-Z0-9a-z._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,64}/", $email));
 }
 
-function isUsernameTaken($username, $email){
-
+function getPoints($userid)
+{
+    global $mysqli;
+    if ($stmt = $mysqli->prepare("SELECT points FROM users WHERE userid=?")) {
+        if ($stmt->execute()) {
+            $stmt->bind_param("i", $userid);
+            $stmt->store_result();
+            $stmt->bind_result($points);
+            $stmt->fetch();
+            return $points;
+        } else {
+            http_response_code(500);
+            echo $mysqli->error;
+            return null;
+        }
+    }
+}
+function updatePointsL1($userid, $points)
+{
+    global $mysqli;
+    if ($stmt = $mysqli->prepare("UPDATE users as p1 SET p1.pointsL1=? WHERE users.userid=?")) {
+        if ($stmt->execute()) {
+            $stmt->bind_param("ii", $points, $userid);
+            return;
+        } else {
+            http_response_code(500);
+            echo $mysqli->error;
+            return null;
+        }
+    }
+}
+function updatePointsL2($userid, $points)
+{
+    global $mysqli;
+    if ($stmt = $mysqli->prepare("UPDATE users as p1 SET p1.pointsL1=? WHERE users.userid=?")) {
+        if ($stmt->execute()) {
+            $stmt->bind_param("ii", $points, $userid);
+            return;
+        } else {
+            http_response_code(500);
+            echo $mysqli->error;
+            return null;
+        }
+    }
 }

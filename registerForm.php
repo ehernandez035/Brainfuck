@@ -20,22 +20,22 @@ require_once "components.php";
 
 
     <div class="card text-center mb-3" style="margin: auto; width: 75%">
-        <h5 class="card-header">Create an account</h5>
+        <h5 class="card-header font-weight-bold">Create an account</h5>
         <div class="card-body">
             <form method="post" action="register.php">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username">
+                    <label for="username" class="font-weight-bold" >Username</label>
+                    <input name="username" type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username">
                     <small id="usernameHelp" class="form-text text-muted">Choose a username that it is not already taken.</small>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label for="exampleInputEmail1" class="font-weight-bold">Email address</label>
+                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <label for="exampleInputPassword1" class="font-weight-bold">Password</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
             <button class='btn btn-primary' type="submit">Submit!  <i class="material-icons" style="vertical-align: middle;">
                     send

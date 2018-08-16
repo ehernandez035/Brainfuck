@@ -1,6 +1,6 @@
 <?php
 require_once "config.php";
-
+session_start();
 $user = $_POST["username"];
 $pass = $_POST["password"];
 
@@ -11,14 +11,15 @@ if ($mysqli->connect_error) {
 }
 
 if ($stmt = $mysqli->prepare("SELECT password, userid FROM users WHERE username=?")) {
-    $stmt->bind_param("s", $username);
+    $stmt->bind_param("s", $user);
     $result = $stmt->execute();
     $stmt->store_result();
     if ($stmt->num_rows != 0) {
         $stmt->bind_result($pass_encrypt, $uid);
         $stmt->fetch();
         if (password_verify($pass, $pass_encrypt)) {
-            echo "1";
+            $_SESSION["userid"]=$uid;
+            header("Location:menu.php");
             die();
         } else {
             echo "0";

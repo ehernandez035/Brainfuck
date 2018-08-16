@@ -44,8 +44,14 @@
     </ACHIEVEMENT>
     <ACHIEVEMENT>
         <TITLE>Exabyte</TITLE>
-        <DESCRIPTION>Congratulations! You have reached the last achievement, you have won my respect.</DESCRIPTION>
+        <DESCRIPTION>Congratulations! You have won my respect.</DESCRIPTION>
         <ID>8</ID>
         <UNLOCK>1000000</UNLOCK>
+    </ACHIEVEMENT>
+    <ACHIEVEMENT>
+        <TITLE>Zettabyte</TITLE>
+        <DESCRIPTION>God level.</DESCRIPTION>
+        <ID>9</ID>
+        <UNLOCK>10000000</UNLOCK>
     </ACHIEVEMENT>
 </ACHIEVEMENTS>
