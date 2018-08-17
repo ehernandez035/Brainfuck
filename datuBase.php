@@ -54,9 +54,9 @@ function isEmailValid($email){
 function getPoints($userid)
 {
     global $mysqli;
-    if ($stmt = $mysqli->prepare("SELECT points FROM users WHERE userid=?")) {
+    if ($stmt = $mysqli->prepare("SELECT (SUM(pointsL1)+ SUM(pointsL2)) AS points FROM users WHERE userid=?")) {
+        $stmt->bind_param("i", $userid);
         if ($stmt->execute()) {
-            $stmt->bind_param("i", $userid);
             $stmt->store_result();
             $stmt->bind_result($points);
             $stmt->fetch();
@@ -89,6 +89,38 @@ function updatePointsL2($userid, $points)
         if ($stmt->execute()) {
             $stmt->bind_param("ii", $points, $userid);
             return;
+        } else {
+            http_response_code(500);
+            echo $mysqli->error;
+            return null;
+        }
+    }
+}
+
+function lastUserByPoints(){
+    global $mysqli;
+    if ($stmt = $mysqli->prepare("SELECT username, (SUM(pointsL1)+ SUM(pointsL2)) AS points FROM users GROUP BY userid ORDER BY points ASC, username DESC LIMIT 1")) {
+        if ($stmt->execute()) {
+            $stmt->store_result();
+            $stmt->bind_result($username, $points);
+            $stmt->fetch();
+            return $username;
+        } else {
+            http_response_code(500);
+            echo $mysqli->error;
+            return null;
+        }
+    }
+}
+
+function firstUserByPoints(){
+    global $mysqli;
+    if ($stmt = $mysqli->prepare("SELECT username, (SUM(pointsL1)+ SUM(pointsL2)) AS points FROM users GROUP BY userid ORDER BY points DESC, username ASC LIMIT 1")) {
+        if ($stmt->execute()) {
+            $stmt->store_result();
+            $stmt->bind_result($username, $points);
+            $stmt->fetch();
+            return $username;
         } else {
             http_response_code(500);
             echo $mysqli->error;

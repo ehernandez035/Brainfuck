@@ -7,12 +7,7 @@ $currentPos = 1;
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="css/bootstrap.css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <?php printHeader(); ?>
 </head>
 <body style="margin-bottom: 100px">
 
@@ -22,11 +17,14 @@ $currentPos = 1;
     <h1 class="mb-3">Brainfuck</h1>
     <div class="container">
         <table class="table table-hover">
+            <thead>
             <tr>
                 <th>Position</th>
                 <th>Username</th>
                 <th>Points</th>
             </tr>
+            </thead>
+            <tbody id="achievementTable">
             <?php
 
             for ($i = 0; $i < max($currentPos * 10, count($topUsers) - $currentPos * 10); $i++) {
@@ -38,19 +36,21 @@ $currentPos = 1;
                     <td><?= $topUser['points'] ?></td>
                 </tr>
                 <?php
-
             }
             ?>
+            </tbody>
         </table>
         <div class="text-center">
-            <button class="btn btn-secondary invisible" id="prevButton-<?= $currentPos ?>" type="submit"><i
-                        class="material-icons">
+            <button class="btn btn-secondary" disabled id="prevButton" type="button">
+                <i class="material-icons">
                     keyboard_arrow_left
-                </i></button>
-            <button class="btn btn-secondary" id="nextButton" type="button"><i
-                        class="material-icons">
+                </i>
+            </button>
+            <button class="btn btn-secondary" id="nextButton" type="button">
+                <i class="material-icons">
                     keyboard_arrow_right
-                </i></button>
+                </i>
+            </button>
         </div>
     </div>
 
@@ -64,14 +64,31 @@ $currentPos = 1;
     $('#nextButton').on('click', function () {
         currentPos++;
         $.ajax({
-            dataType:"json",
+            dataType: "json",
             url: "getUsersByRankingPos.php",
             type: "get",
             data: {
                 current_pos: currentPos
             },
             success: function (response) {
-                console.log(response);
+                $('#achievementTable').empty();
+                let i = 1;
+                for (let e of response.users) {
+                    console.log(e);
+                    let content = `<tr><td>${currentPos*10+i}</td><td>${e.username}</td><td>${e.points}</td></tr>`;
+                    $('#achievementTable').append(content);
+                    i++;
+                }
+                if (response.last) {
+                    $("#nextButton").attr("disabled", "");
+                }else{
+                    $("#nextButton").removeAttr("disabled");
+                }
+                if (response.first) {
+                    $("#prevButton").attr("disabled", "");
+                }else{
+                    $("#prevButton").removeAttr("disabled");
+                }
             },
             error: function (xhr) {
                 alert("An error has happened.");
@@ -79,9 +96,41 @@ $currentPos = 1;
         });
     });
 
-    function hideButton(buttonId) {
-        document.getElementById(buttonId).style.visibility = 'hidden';
-    }
+    $('#prevButton').on('click', function () {
+        currentPos--;
+        $.ajax({
+            dataType: "json",
+            url: "getUsersByRankingPos.php",
+            type: "get",
+            data: {
+                current_pos: currentPos
+            },
+            success: function (response) {
+                $('#achievementTable').empty();
+                let i = 1;
+                for (let e of response.users) {
+                    console.log(e);
+                    let content = `<tr><td>${currentPos*10+i}</td><td>${e.username}</td><td>${e.points}</td></tr>`;
+                    $('#achievementTable').append(content);
+                    i++;
+                }
+                if (response.first) {
+                    $("#prevButton").attr("disabled", "");
+                }else{
+                    $("#prevButton").removeAttr("disabled");
+                }
+                if (response.last) {
+                    $("#nextButton").attr("disabled", "");
+                }else{
+                    $("#nextButton").removeAttr("disabled");
+                }
+            },
+            error: function (xhr) {
+                alert("An error has happened.");
+            }
+        });
+    });
+
 </script>
 
 </body>
